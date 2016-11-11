@@ -1,0 +1,299 @@
+[przemo@n53sv 4_debugger]$ ../asmloader/asmloader d
+Simplified Assembly Loader v.0.0.2 by gynvael.coldwind//vx
+Code loaded at 0xf76ff100 (32 bytes)
+15b2626a
+[przemo@n53sv 4_debugger]$ nasm d.asm 
+[przemo@n53sv 4_debugger]$ ../asmloader/asmloader d
+Simplified Assembly Loader v.0.0.2 by gynvael.coldwind//vx
+Code loaded at 0xf77b6100 (33 bytes)
+Pułapka debuggera/breakpoint (zrzut pamięci)
+[przemo@n53sv 4_debugger]$ gdb -q
+(gdb) Quit
+(gdb) Quit
+(gdb) Quit
+(gdb) quit
+[przemo@n53sv 4_debugger]$ gdb -q ../asmloader/asmloader
+Reading symbols from ../asmloader/asmloader...(no debugging symbols found)...done.
+(gdb) run d
+Starting program: /mnt/Rzeczy/Repositories/nasm/asmloader/asmloader d
+Simplified Assembly Loader v.0.0.2 by gynvael.coldwind//vx
+Code loaded at 0xf7fd3100 (33 bytes)
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0xf7fd3101 in ?? ()
+(gdb) x/10i $eip
+=> 0xf7fd3101:  mov    $0x12345678,%eax
+   0xf7fd3106:  xor    $0x7863412,%eax
+   0xf7fd310b:  push   %eax
+   0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    $0xa78382e,%eax
+   0xf7fd3116:  add    %bh,%bh
+   0xf7fd3118:  push   %ebx
+   0xf7fd3119:  or     $0x83,%al
+   0xf7fd311b:  les    (%eax),%ecx
+   0xf7fd311d:  push   $0x0
+(gdb) set dis
+disable-randomization  disassemble-next-line  disassembly-flavor     disconnected-dprintf   disconnected-tracing   displaced-stepping
+(gdb) set dis
+disable-randomization  disassemble-next-line  disassembly-flavor     disconnected-dprintf   disconnected-tracing   displaced-stepping
+(gdb) set disassembl-fl
+flistxattr     flock          flockfile      flush_cleanup  flush_out      
+(gdb) set disassembl-fl
+flistxattr     flock          flockfile      flush_cleanup  flush_out      
+(gdb) set disassembl-flavor intel
+No symbol table is loaded.  Use the "file" command.
+(gdb) set disassembly-flavor intel
+(gdb) x/10i $eip
+=> 0xf7fd3101:  mov    eax,0x12345678
+   0xf7fd3106:  xor    eax,0x7863412
+   0xf7fd310b:  push   eax
+   0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+   0xf7fd311d:  push   0x0
+(gdb) print (char*)$eip
+$1 = 0xf7fd3101 "\270xV4\022\065\022\064\206\aP\350\006"
+(gdb) x/10x $eip
+0xf7fd3101:     0x345678b8      0x34123512      0xe8500786      0x00000006
+0xf7fd3111:     0x78382e25      0x53ff000a      0x08c4830c      0x13ff006a
+0xf7fd3121:     0x000000cc      0x00000000
+(gdb) print (char*)0xf7fd3111
+$2 = 0xf7fd3111 "%.8x\n"
+(gdb) display/10i $eip
+1: x/10i $eip
+=> 0xf7fd3101:  mov    eax,0x12345678
+   0xf7fd3106:  xor    eax,0x7863412
+   0xf7fd310b:  push   eax
+   0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+   0xf7fd311d:  push   0x0
+(gdb) ni
+0xf7fd3106 in ?? ()
+1: x/10i $eip
+=> 0xf7fd3106:  xor    eax,0x7863412
+   0xf7fd310b:  push   eax
+   0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+   0xf7fd311d:  push   0x0
+   0xf7fd311f:  call   DWORD PTR [ebx]
+(gdb) ni
+0xf7fd310b in ?? ()
+1: x/10i $eip
+=> 0xf7fd310b:  push   eax
+   0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+   0xf7fd311d:  push   0x0
+   0xf7fd311f:  call   DWORD PTR [ebx]
+   0xf7fd3121:  int3   
+(gdb) ni
+0xf7fd310c in ?? ()
+1: x/10i $eip
+=> 0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+   0xf7fd311d:  push   0x0
+   0xf7fd311f:  call   DWORD PTR [ebx]
+   0xf7fd3121:  int3   
+   0xf7fd3122:  add    BYTE PTR [eax],al
+(gdb) x/10x $esp
+0xffffd718:     0x15b2626a      0x08048b1b      0xffffd738      0xf7fd3100
+0xffffd728:     0x00000021      0xf7fd42e8      0xf7f97000      0xf7f97000
+0xffffd738:     0x08048610      0x08048680
+(gdb) ni
+0xf7fd3117 in ?? ()
+1: x/10i $eip
+=> 0xf7fd3117:  call   DWORD PTR [ebx+0xc]
+   0xf7fd311a:  add    esp,0x8
+   0xf7fd311d:  push   0x0
+   0xf7fd311f:  call   DWORD PTR [ebx]
+   0xf7fd3121:  int3   
+   0xf7fd3122:  add    BYTE PTR [eax],al
+   0xf7fd3124:  add    BYTE PTR [eax],al
+   0xf7fd3126:  add    BYTE PTR [eax],al
+   0xf7fd3128:  add    BYTE PTR [eax],al
+   0xf7fd312a:  add    BYTE PTR [eax],al
+(gdb) x/10x $esp
+0xffffd714:     0xf7fd3111      0x15b2626a      0x08048b1b      0xffffd738
+0xffffd724:     0xf7fd3100      0x00000021      0xf7fd42e8      0xf7f97000
+0xffffd734:     0xf7f97000      0x08048610
+(gdb) info reg eax
+eax            0x15b2626a       364012138
+(gdb) info reg
+eax            0x15b2626a       364012138
+ecx            0xf7f98850       -134641584
+edx            0x0      0
+ebx            0xffffd738       -10440
+esp            0xffffd714       0xffffd714
+ebp            0xffffd768       0xffffd768
+esi            0x2      2
+edi            0xf7f97000       -134647808
+eip            0xf7fd3117       0xf7fd3117
+eflags         0x206    [ PF IF ]
+cs             0x23     35
+ss             0x2b     43
+ds             0x2b     43
+es             0x2b     43
+fs             0x0      0
+gs             0x63     99
+(gdb) info reg eax
+eax            0x15b2626a       364012138
+(gdb) set $eax=0x12345678
+(gdb) info reg eax
+eax            0x12345678       305419896
+(gdb) c
+Continuing.
+15b2626a
+[Inferior 1 (process 12100) exited normally]
+(gdb) r d
+Starting program: /mnt/Rzeczy/Repositories/nasm/asmloader/asmloader d
+Simplified Assembly Loader v.0.0.2 by gynvael.coldwind//vx
+Code loaded at 0xf7fd3100 (33 bytes)
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0xf7fd3101 in ?? ()
+1: x/10i $eip
+=> 0xf7fd3101:  mov    eax,0x12345678
+   0xf7fd3106:  xor    eax,0x7863412
+   0xf7fd310b:  push   eax
+   0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+   0xf7fd311d:  push   0x0
+(gdb) ni
+0xf7fd3106 in ?? ()
+1: x/10i $eip
+=> 0xf7fd3106:  xor    eax,0x7863412
+   0xf7fd310b:  push   eax
+   0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+   0xf7fd311d:  push   0x0
+   0xf7fd311f:  call   DWORD PTR [ebx]
+(gdb) 
+0xf7fd310b in ?? ()
+1: x/10i $eip
+=> 0xf7fd310b:  push   eax
+   0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+   0xf7fd311d:  push   0x0
+   0xf7fd311f:  call   DWORD PTR [ebx]
+   0xf7fd3121:  int3   
+(gdb) set $eax=0x12345678
+(gdb) ni
+0xf7fd310c in ?? ()
+1: x/10i $eip
+=> 0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+   0xf7fd311d:  push   0x0
+   0xf7fd311f:  call   DWORD PTR [ebx]
+   0xf7fd3121:  int3   
+   0xf7fd3122:  add    BYTE PTR [eax],al
+(gdb) x/10x $esp
+0xffffd718:     0x12345678      0x08048b1b      0xffffd738      0xf7fd3100
+0xffffd728:     0x00000021      0xf7fd42e8      0xf7f97000      0xf7f97000
+0xffffd738:     0x08048610      0x08048680
+(gdb) ni
+0xf7fd3117 in ?? ()
+1: x/10i $eip
+=> 0xf7fd3117:  call   DWORD PTR [ebx+0xc]
+   0xf7fd311a:  add    esp,0x8
+   0xf7fd311d:  push   0x0
+   0xf7fd311f:  call   DWORD PTR [ebx]
+   0xf7fd3121:  int3   
+   0xf7fd3122:  add    BYTE PTR [eax],al
+   0xf7fd3124:  add    BYTE PTR [eax],al
+   0xf7fd3126:  add    BYTE PTR [eax],al
+   0xf7fd3128:  add    BYTE PTR [eax],al
+   0xf7fd312a:  add    BYTE PTR [eax],al
+(gdb) x/10x $esp
+0xffffd714:     0xf7fd3111      0x12345678      0x08048b1b      0xffffd738
+0xffffd724:     0xf7fd3100      0x00000021      0xf7fd42e8      0xf7f97000
+0xffffd734:     0xf7f97000      0x08048610
+(gdb) print *(char**)$esp
+$3 = 0xf7fd3111 "%.8x\n"
+(gdb) c
+Continuing.
+12345678
+[Inferior 1 (process 12199) exited normally]
+(gdb) r d
+Starting program: /mnt/Rzeczy/Repositories/nasm/asmloader/asmloader d
+Simplified Assembly Loader v.0.0.2 by gynvael.coldwind//vx
+Code loaded at 0xf7fd3100 (33 bytes)
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0xf7fd3101 in ?? ()
+1: x/10i $eip
+=> 0xf7fd3101:  mov    eax,0x12345678
+   0xf7fd3106:  xor    eax,0x7863412
+   0xf7fd310b:  push   eax
+   0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+   0xf7fd311d:  push   0x0
+(gdb) x/10i ($eip-1)
+   0xf7fd3100:  int3   
+=> 0xf7fd3101:  mov    eax,0x12345678
+   0xf7fd3106:  xor    eax,0x7863412
+   0xf7fd310b:  push   eax
+   0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+(gdb) break *0xf7fd310c
+Breakpoint 1 at 0xf7fd310c
+(gdb) info break
+Num     Type           Disp Enb Address    What
+1       breakpoint     keep y   0xf7fd310c 
+(gdb) c
+Continuing.
+
+Breakpoint 1, 0xf7fd310c in ?? ()
+1: x/10i $eip
+=> 0xf7fd310c:  call   0xf7fd3117
+   0xf7fd3111:  and    eax,0xa78382e
+   0xf7fd3116:  add    bh,bh
+   0xf7fd3118:  push   ebx
+   0xf7fd3119:  or     al,0x83
+   0xf7fd311b:  les    ecx,FWORD PTR [eax]
+   0xf7fd311d:  push   0x0
+   0xf7fd311f:  call   DWORD PTR [ebx]
+   0xf7fd3121:  int3   
+   0xf7fd3122:  add    BYTE PTR [eax],al
+(gdb) 
